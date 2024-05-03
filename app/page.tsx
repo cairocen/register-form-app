@@ -1,14 +1,23 @@
+'use client';
 
 import Link from 'next/link';
 import Image from 'next/image';
+import sendEmail from './lib/sendEmail';
 
 export default function FormularioRegistro() {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const correoElectronico = (e.target as HTMLFormElement).correoElectronico.value;
+
+    // Llamamos a la función sendEmail para enviar el correo electrónico
+    sendEmail(correoElectronico);
+  };
 
   return (
     <div className="font-[sans-serif] text-[#333] bg-white">
       <div className="min-h-screen flex fle-col items-center justify-center p-6">
         <div className="grid md:grid-cols-2 place-items-center gap-6 max-w-7xl w-full">
-          <form className="md:max-w-md w-full">
+          <form className="md:max-w-md w-full" onSubmit={handleSubmit}>
             <h3 className="text-2xl font-extrabold mb-10">Registro</h3>
             <div className="space-y-6">
               <div>
@@ -52,7 +61,7 @@ export default function FormularioRegistro() {
             <p className="text-sm mt-6">¿Ya tienes una cuenta? <Link href="#" className="text-blue-500 font-semibold hover:underline ml-1">Inicia sesión aquí</Link></p>
           </form>
           <div className="items-center max-md:mt-10">
-            <Image src="/Spaceflight.jpeg" alt="Foto de Perfil" width={1280} height={720} objectFit="contain" />
+            <Image src="/Spaceflight.jpeg" alt="Foto de Perfil" width={1280} height={720} priority={true} />
           </div>
         </div>
       </div>
